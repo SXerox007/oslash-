@@ -1,0 +1,157 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "protos/user/tweet/tweet.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/user/list/tweet": {
+      "get": {
+        "summary": "tweet list",
+        "operationId": "TweetList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tweetpbTweetListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TweetService"
+        ]
+      }
+    },
+    "/v1/user/tweet": {
+      "delete": {
+        "summary": "delete tweet",
+        "operationId": "DeleteTweet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tweetpbCommonResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tweet_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "common_request.access_token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TweetService"
+        ]
+      },
+      "post": {
+        "operationId": "TweetCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tweetpbCommonResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tweetpbTweetUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TweetService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "tweetpbCommonRequest": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string"
+        }
+      }
+    },
+    "tweetpbCommonResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "tweetpbTweetList": {
+      "type": "object",
+      "properties": {
+        "tweet": {
+          "type": "string"
+        },
+        "tweet_id": {
+          "type": "string"
+        }
+      }
+    },
+    "tweetpbTweetListResponse": {
+      "type": "object",
+      "properties": {
+        "tweet_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tweetpbTweetList"
+          }
+        }
+      }
+    },
+    "tweetpbTweetUserRequest": {
+      "type": "object",
+      "properties": {
+        "tweet": {
+          "type": "string"
+        },
+        "common_request": {
+          "$ref": "#/definitions/tweetpbCommonRequest"
+        }
+      }
+    }
+  }
+}

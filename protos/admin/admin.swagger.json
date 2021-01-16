@@ -1,0 +1,260 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "protos/admin/admin.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/admin/list/tweet": {
+      "get": {
+        "summary": "admin list tweet",
+        "operationId": "AdminListTweet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminpbTweetListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "common_request.access_token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/v1/admin/tweet": {
+      "delete": {
+        "summary": "admin delete tweet",
+        "operationId": "AdminDeleteTweet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminpbCommonResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tweet_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "common_request.access_token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      },
+      "post": {
+        "summary": "admin create tweet",
+        "operationId": "AdminCreateTweet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminpbCommonResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/adminpbTweetAdminRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/v1/admin/update-tweet": {
+      "post": {
+        "summary": "admin update tweet",
+        "operationId": "AdminUpdateTweet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminpbCommonResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/adminpbAdminTweetUpdateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/v1/edit/userdetails": {
+      "post": {
+        "operationId": "EditUserDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminpbCommonResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/adminpbEditUserDetailsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "adminpbAdminTweetUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "tweet": {
+          "$ref": "#/definitions/adminpbTweet"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "common_request": {
+          "$ref": "#/definitions/adminpbCommonRequest"
+        }
+      }
+    },
+    "adminpbCommonRequest": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string"
+        }
+      }
+    },
+    "adminpbCommonResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "adminpbEditUserDetailsRequest": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "common_request": {
+          "$ref": "#/definitions/adminpbCommonRequest"
+        }
+      }
+    },
+    "adminpbTweet": {
+      "type": "object",
+      "properties": {
+        "tweet": {
+          "type": "string"
+        },
+        "tweet_id": {
+          "type": "string"
+        }
+      }
+    },
+    "adminpbTweetAdminRequest": {
+      "type": "object",
+      "properties": {
+        "tweet": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "common_request": {
+          "$ref": "#/definitions/adminpbCommonRequest"
+        }
+      }
+    },
+    "adminpbTweetListResponse": {
+      "type": "object",
+      "properties": {
+        "tweet_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/adminpbTweet"
+          }
+        }
+      }
+    }
+  }
+}

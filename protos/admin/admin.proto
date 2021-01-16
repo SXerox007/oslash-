@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package adminpb;
+
+import "google/api/annotations.proto";
+
+message EditUserDetailsRequest{
+    string phone = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string role = 5;
+    string user_id = 6;
+    CommonRequest common_request = 7;
+}
+
+message CommonResponse{
+    string message = 1;
+    int32 code = 2;
+    string data = 3;
+}
+
+message CommonRequest{
+    string access_token  = 1;
+}
+
+message TweetAdminRequest{
+    string tweet = 1;
+    string user_id = 2;
+    CommonRequest common_request = 3;
+}
+
+message DeleteAdminTweetRequest {
+    string tweet_id = 1;
+    CommonRequest common_request = 2;
+}
+
+message TweetListResponse{
+    repeated Tweet tweet_list = 1;
+}
+
+message Tweet{
+    string tweet = 1;
+    string tweet_id = 2;
+}
+
+message AdminTweetListRequest{
+    string user_id = 1;
+    CommonRequest common_request = 2;
+}
+
+message AdminTweetUpdateRequest{
+    Tweet tweet = 1;
+    string user_id = 2;
+    CommonRequest common_request = 3;
+}
+
+
+service AdminService{
+    rpc EditUserDetails(EditUserDetailsRequest) returns (CommonResponse){
+        option (google.api.http) = {
+            post: "/v1/edit/userdetails"
+            body:"*"
+		};
+    };
+
+    // admin create tweet
+    rpc AdminCreateTweet(TweetAdminRequest) returns (CommonResponse){
+        option (google.api.http) = {
+            post: "/v1/admin/tweet"
+            body: "*"
+		};
+    };
+    // admin delete tweet
+    rpc AdminDeleteTweet(DeleteAdminTweetRequest) returns (CommonResponse){
+        option (google.api.http) = {
+            delete: "/v1/admin/tweet"
+		};
+    };
+    // admin update tweet
+    rpc AdminUpdateTweet(AdminTweetUpdateRequest) returns (CommonResponse){
+        option (google.api.http) = {
+            post: "/v1/admin/update-tweet"
+            body: "*"
+		};
+    };
+    // admin list tweet
+    rpc AdminListTweet(AdminTweetListRequest) returns (TweetListResponse){
+        option (google.api.http) = {
+            get: "/v1/admin/list/tweet"
+		};
+    };
+}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"OSlash/api/admin"
 	"OSlash/api/onboarding/register"
 	"OSlash/api/user"
 	"OSlash/base/server"
@@ -64,4 +65,6 @@ func rpcServices(srv *grpc.Server) {
 	register.RegisterUserService(srv)
 	// users
 	user.RegisterTweetService(srv)
+	// admin servies
+	admin.RegisterAdminService(srv)
 }

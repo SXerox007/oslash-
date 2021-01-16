@@ -1,6 +1,7 @@
 package main
 
 import (
+	"OSlash/protos/admin"
 	"OSlash/protos/onboarding/register"
 	"OSlash/protos/user/tweet"
 	"context"
@@ -34,6 +35,7 @@ func ExposePoint(address string, opts ...runtime.ServeMuxOption) error {
 
 	err := regsiterpb.RegisterRegisterServiceHandlerFromEndpoint(ctx, mux, *authpoint, dialOpts)
 	err = tweetpb.RegisterTweetServiceHandlerFromEndpoint(ctx, mux, *authpoint, dialOpts)
+	err = adminpb.RegisterAdminServiceHandlerFromEndpoint(ctx, mux, *authpoint, dialOpts)
 	if err != nil {
 		return err
 	}
